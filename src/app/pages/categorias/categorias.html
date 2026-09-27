@@ -1,0 +1,132 @@
+<div class="container">
+
+  <h1>Gerenciamento de Categorias</h1>
+
+  <div class="formulario">
+
+    <h2>
+      {{ editando ? 'Editar Categoria' : 'Nova Categoria' }}
+    </h2>
+
+    <div class="campo">
+      <label>Nome:</label>
+
+      <input
+        type="text"
+        [(ngModel)]="categoria.nome"
+        placeholder="Digite o nome da categoria"
+      />
+    </div>
+
+    <div class="campo">
+      <label>Descrição:</label>
+
+      <input
+        type="text"
+        [(ngModel)]="categoria.descricao"
+        placeholder="Digite a descrição"
+      />
+    </div>
+
+    <div class="campo">
+      <label>Status:</label>
+
+      <select [(ngModel)]="categoria.ativo">
+        <option value="S">Ativo</option>
+        <option value="N">Inativo</option>
+      </select>
+    </div>
+
+    <div class="botoes">
+
+      <button (click)="salvar()">
+        {{ editando ? 'Atualizar' : 'Cadastrar' }}
+      </button>
+
+      <button
+        type="button"
+        class="cancelar"
+        (click)="limpar()"
+      >
+        Limpar
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="lista">
+
+    <h2>Categorias cadastradas</h2>
+
+    @if (categorias.length === 0) {
+
+      <p>Nenhuma categoria cadastrada.</p>
+
+    } @else {
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (categoria of categorias; track categoria.categoriaID) {
+
+            <tr>
+
+              <td>
+                {{ categoria.categoriaID }}
+              </td>
+
+              <td>
+                {{ categoria.nome }}
+              </td>
+
+              <td>
+                {{ categoria.descricao }}
+              </td>
+
+              <td>
+                {{ categoria.ativo === 'S' ? 'Ativo' : 'Inativo' }}
+              </td>
+
+              <td>
+
+                <button
+                  class="editar"
+                  (click)="editar(categoria)"
+                >
+                  Editar
+                </button>
+
+                <button
+                  class="excluir"
+                  (click)="excluir(categoria.categoriaID)"
+                >
+                  Excluir
+                </button>
+
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    }
+
+  </div>
+
+</div>
