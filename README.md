@@ -149,3 +149,26 @@ app.MapControllers();
 app.Run();
 ```
 
+## Autenticação
+Foi implementado um sistema simples de autenticação para controlar o acesso à API.
+O usuário realiza login informando:
+- Usuário;
+- Senha.
+Após o login, o back-end gera um token que é utilizado nas requisições seguintes.
+
+
+| Usuário | Senha | Tipo |
+| :--- | :---: | ---: |
+| admin | 123456 | Administrador  |
+|usuario | 123456 | Usuário  |
+
+
+## Autorização
+Além da autenticação, o sistema possui controle de permissões.
+Usuários autenticados podem consultar as categorias, porém operações de alteração dos dados são restritas ao usuário do tipo Administrador.
+As operações protegidas por administrador são:
+- Cadastrar categoria;
+- Atualizar categoria;
+- Excluir categoria.
+Caso um usuário não autenticado tente acessar uma operação protegida, a API retorna 401 - Unauthorized.
+Caso um usuário autenticado, mas sem permissão de administrador, tente realizar uma operação administrativa, a API retorna 403 - Forbidden.
