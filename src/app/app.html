@@ -1,1 +1,5 @@
-<app-categorias></app-categorias>
+@if (estaLogado) {
+  <app-categorias></app-categorias>
+} @else {
+  <app-login></app-login>
+}

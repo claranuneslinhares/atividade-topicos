@@ -13,27 +13,66 @@ export class CategoriaService {
   constructor(private http: HttpClient) {}
 
   listar(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.apiUrl);
+    const token = localStorage.getItem('token');
+
+    return this.http.get<Categoria[]>(this.apiUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 
   buscarPorId(id: number): Observable<Categoria> {
-    return this.http.get<Categoria>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token');
+
+    return this.http.get<Categoria>(
+      `${this.apiUrl}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
   }
 
   adicionar(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.apiUrl, categoria);
+    const token = localStorage.getItem('token');
+
+    return this.http.post<Categoria>(
+      this.apiUrl,
+      categoria,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
   }
 
   atualizar(id: number, categoria: Categoria): Observable<void> {
+    const token = localStorage.getItem('token');
+
     return this.http.put<void>(
       `${this.apiUrl}/${id}`,
-      categoria
+      categoria,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
   }
 
   excluir(id: number): Observable<void> {
+    const token = localStorage.getItem('token');
+
     return this.http.delete<void>(
-      `${this.apiUrl}/${id}`
+      `${this.apiUrl}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
   }
 }
